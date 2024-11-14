@@ -1,50 +1,90 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import {
+  CrownOutlined,
+  InfoCircleOutlined,
+  QuestionCircleOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons";
+
+import { ProLayout } from "@ant-design/pro-components";
+import { emit } from "@tauri-apps/api/event";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { openDocsFolder } from "./utils/fs";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+  function flush() {
+    navigate(0);
   }
 
+  function goHome() {
+    navigate("/");
+  }
+
+  function openSettings() {
+    emit("open-settings");
+  }
+  
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+    <ProLayout
+      title="功能菜单"
+      fixSiderbar
+      route={{
+        path: "/",
+        routes: [
+          {
+            path: "/",
+            name: "主页",
+            icon: <CrownOutlined />,
+            // access: "canAdmin",
+            // component: <Home />,
+          }
+        ],
+      }}
+      location={{
+        pathname: location.pathname,
+      }}
+      waterMarkProps={{
+        content: "Assistor",
+      }}
+      // avatarProps={{
+      //   icon: <UserOutlined />,
+      //   size: "small",
+      //   title: "User",
+      // }}
+      actionsRender={() => [
+        <ReloadOutlined name="test" key="ReloadOutlined" onClick={flush} />,
+        <InfoCircleOutlined key="InfoCircleOutlined" onClick={openSettings} />,
+        <QuestionCircleOutlined
+          key="QuestionCircleOutlined"
+          onClick={openDocsFolder}
+        />,
+        // <MergeCellsOutlined key="MergeCellsOutlined" />,
+        // <SettingOutlined onClick={openSettings} />,
+      ]}
+      // menuFooterRender={(props: any) => {
+      //   if (props?.collapsed) return undefined;
+      //   return (
+      //     <p
+      //       style={{
+      //         textAlign: "center",
+      //         color: "rgba(0,0,0,0.6)",
+      //         paddingBlockStart: 12,
+      //       }}
+      //     >
+      //       Power by Ant Design
+      //     </p>
+      //   );
+      // }}
+      onMenuHeaderClick={(_: any) => goHome()}
+      menuItemRender={(item: any, dom: any) => (
+        <Link to={item.path}>{dom}</Link>
+      )}
+    >
+      <Outlet />
+    </ProLayout>
   );
 }
 
