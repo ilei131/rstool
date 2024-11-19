@@ -3,7 +3,7 @@ import CurrentTime from "../components/CurrentTime";
 
 const { Title } = Typography;
 
-function Home() {
+function Password() {
   
     return (
       <>
@@ -17,4 +17,4 @@ function Home() {
     );
   }
   
-  export default Home;
+  export default Password;

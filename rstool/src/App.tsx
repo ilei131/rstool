@@ -1,9 +1,10 @@
 import "./App.css";
 import {
-  CrownOutlined,
+  ToolOutlined ,
   InfoCircleOutlined,
   QuestionCircleOutlined,
   ReloadOutlined,
+  KeyOutlined
 } from "@ant-design/icons";
 
 import { ProLayout } from "@ant-design/pro-components";
@@ -29,7 +30,8 @@ function App() {
   
   return (
     <ProLayout
-      title="功能菜单"
+      title="rstool"
+      logo="../src-tauri/icons/icon.png"
       fixSiderbar
       route={{
         path: "/",
@@ -37,9 +39,12 @@ function App() {
           {
             path: "/",
             name: "主页",
-            icon: <CrownOutlined />,
-            // access: "canAdmin",
-            // component: <Home />,
+            icon: <ToolOutlined  />,
+          },
+          {
+            path: "/password",
+            name: "密码",
+            icon: <KeyOutlined  />,
           }
         ],
       }}
@@ -47,13 +52,8 @@ function App() {
         pathname: location.pathname,
       }}
       waterMarkProps={{
-        content: "Assistor",
+        content: "rstool",
       }}
-      // avatarProps={{
-      //   icon: <UserOutlined />,
-      //   size: "small",
-      //   title: "User",
-      // }}
       actionsRender={() => [
         <ReloadOutlined name="test" key="ReloadOutlined" onClick={flush} />,
         <InfoCircleOutlined key="InfoCircleOutlined" onClick={openSettings} />,
@@ -61,23 +61,7 @@ function App() {
           key="QuestionCircleOutlined"
           onClick={openDocsFolder}
         />,
-        // <MergeCellsOutlined key="MergeCellsOutlined" />,
-        // <SettingOutlined onClick={openSettings} />,
       ]}
-      // menuFooterRender={(props: any) => {
-      //   if (props?.collapsed) return undefined;
-      //   return (
-      //     <p
-      //       style={{
-      //         textAlign: "center",
-      //         color: "rgba(0,0,0,0.6)",
-      //         paddingBlockStart: 12,
-      //       }}
-      //     >
-      //       Power by Ant Design
-      //     </p>
-      //   );
-      // }}
       onMenuHeaderClick={(_: any) => goHome()}
       menuItemRender={(item: any, dom: any) => (
         <Link to={item.path}>{dom}</Link>
