@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Space, Button, Typography, Modal } from "antd";
 import { emit, listen } from "@tauri-apps/api/event";
 import { getVersion, getName, getTauriVersion } from "@tauri-apps/api/app";

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
-import Password from "./pages/pwmanager/Login";
+import Password from "./pages/Password";
 import { ConfigProvider, theme } from "antd";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import zhCN from "antd/locale/zh_CN";
