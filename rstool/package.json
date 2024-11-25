@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "rsbuild dev",
+    "build": "tsc && rsbuild build",
+    "preview": "rsbuild preview",
     "tauri": "tauri"
   },
   "dependencies": {
@@ -32,6 +32,9 @@
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
-    "@tauri-apps/cli": "^2"
+    "@tauri-apps/cli": "^2",
+    "@rsbuild/core": "^1.1.5",
+    "@rsbuild/plugin-react": "^1.0.7",
+    "@rsbuild/plugin-less": "^1.1.0"
   }
 }
